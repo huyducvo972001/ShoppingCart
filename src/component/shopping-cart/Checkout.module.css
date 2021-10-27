@@ -1,0 +1,30 @@
+.form{
+    width: 600px;
+    margin: auto;
+    z-index: 100;
+    margin-top: 100px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+}
+
+.overlay{
+    background-color: rgba(0, 0, 0,0.5);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 10;
+}
+.btn{
+    text-align: right;    
+}
+
+.btn button{
+    margin-left: 20px;
+}

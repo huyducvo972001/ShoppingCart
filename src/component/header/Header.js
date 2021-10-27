@@ -1,15 +1,22 @@
 import React, { useContext } from 'react'
-import flag_vietnam from '../../assert/image/flag-vietnam.png'
-import flag_england from '../../assert/image/flag-england.png'
 import avatar from '../../assert/image/avartar23.jpg'
 import logo_header from '../../assert/image/logo1.png'
 import { Link } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import CartContext from '../../store/cart-context'
+import AuthContext from '../../store/auth-context'
 const Header = () => {
   const urlHandler = useParams();
   const CartCtx = useContext(CartContext)
+
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn
+
+  const logoutHandler = () =>{
+    authCtx.logout()
+  } 
+
   useEffect(() => {
     const action = setTimeout(() => {
       window.scrollBy(0, -1000000)
@@ -30,8 +37,7 @@ const Header = () => {
               </div>
 
               <div className="d-flex align-items-center">
-                <a style={{ marginRight: "20px" }} href='!'><img src={flag_vietnam} alt="" /></a>
-                <a style={{ marginRight: "20px" }} href='!'><img src={flag_england} alt="" /></a>
+                <label style={{ marginRight: "20px", color:"white" }}>Tài khoản</label>                
 
                 <a
                   className="dropdown-toggle d-flex align-items-center hidden-arrow"
@@ -53,15 +59,11 @@ const Header = () => {
                   className="dropdown-menu dropdown-menu-end"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
-                  <li>
-                    <a className="dropdown-item" href="!#">My profile</a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="!#">Settings</a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="!#">Logout</a>
-                  </li>
+                  {!isLoggedIn && <li>
+                    <Link to="/auth"><span className="dropdown-item" >Đăng nhập</span></Link>
+                  </li>}
+                  {isLoggedIn && <span className="dropdown-item" onClick={logoutHandler}>Đăng xuất</span>}
+
                 </ul>
               </div>
             </div>

@@ -1,14 +1,15 @@
-import { useCallback, useEffect, useState } from "react";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
 import "./App.css";
+import AuthForm from "./component/auth/AuthForm";
 import Categories from "./component/categories/Categories";
-
 import Footer from "./component/footer/Footer";
 import Header from "./component/header/Header";
 
 import Home from "./component/home/Home";
 import ProductDetail from "./component/product-detail/ProductDetail";
 import ShoppingCart from "./component/shopping-cart/ShoppingCart";
+import AuthContext from "./store/auth-context";
 import CartProvider from "./store/CartProvider";
 import PageLoading from "./store/PageLoading";
 
@@ -62,14 +63,18 @@ const CATEGORY_MUMY = [
 
 function App() {
   const [listProduct, setListProduct] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
+  const [httpError, setHttpError] = useState();
 
-  const fetchPostList = useCallback(async () => {
-    try {
+  const authCtx = useContext(AuthContext);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
       const requestUrl =
         "https://shopping-comuca-default-rtdb.firebaseio.com/database.json";
       const response = await fetch(requestUrl);
-      const responseJSON = await response.json();
-      const data = responseJSON;
+      const responseData = await response.json();
+      const data = responseData;
 
       const products = [];
 
@@ -85,19 +90,31 @@ function App() {
       }
 
       setListProduct(products);
-    } catch (error) {
-      alert("Failed to fetch api: ", error.message);
+      setIsLoading(false)
     }
+    fetchProducts().catch(error => {
+      setHttpError(error.message)
+      setIsLoading(false)
+    })
   }, []);
 
-  useEffect(() => {
-    fetchPostList();
-  }, [fetchPostList]);
+  if (isLoading) {
+    return <section >
+      <p>Loading...</p>
+    </section>
+  }
+
+  if (httpError) {
+    return <section>
+      <p>{httpError}</p>
+    </section>
+  }
 
   return (
+
     <CartProvider>
       <Router>
-        <PageLoading/>
+        <PageLoading />
         <Header />
         <Switch>
           <Route path="/product-detail/:id">
@@ -109,13 +126,20 @@ function App() {
           <Route path="/shopping-cart">
             <ShoppingCart />
           </Route>
+          {!authCtx.isLoggedIn && <Route path="/auth">
+            <AuthForm />
+          </Route>}
           <Route path="/">
             <Home arrProduct={CATEGORY_MUMY} listProduct={listProduct} />
+          </Route>
+          <Route path="*">
+            <Redirect to="/" />
           </Route>
         </Switch>
         <Footer />
       </Router>
     </CartProvider>
+
   );
 }
 

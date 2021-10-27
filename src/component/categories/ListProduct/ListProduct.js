@@ -4,8 +4,6 @@ import CardItem from "../../items/CardItem";
 const ListProduct = (props) => {
   return (
     <div className="container">
-
-
       <div className="mt-5 product_of_category">
         <div className="row">
           <div className="col">

@@ -11,9 +11,7 @@ const ProductDetail = (props) => {
   const fillProduct = () => {
     return props.listProduct.filter((p) => p.category === 3).slice(0, 5);
   };
-
-  console.log(1);
- 
+  
   useEffect(() => {
     if (!props.listProduct.find((p) => p.id === Number(id.id))) {
       setProductDetail({

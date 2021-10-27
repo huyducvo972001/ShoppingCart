@@ -7,7 +7,7 @@ const defaultCartState = {
 };
 const cartReducer = (state, action) => {
   if (action.type === "ADD") {
-    const updateTotalAmount =state.totalAmount + action.item.amount * action.item.price;
+    const updateTotalAmount = state.totalAmount + action.item.amount * action.item.price;
 
     const checkCartItemIndex = state.items.findIndex(
       (i) => i.id === action.item.id
@@ -26,8 +26,10 @@ const cartReducer = (state, action) => {
       updateItems[checkCartItemIndex] = updateItem;
     } else {
       updateItems = state.items.concat(action.item);
-    
+
     }
+  
+    localStorage.setItem("cart", JSON.stringify(updateItems))
     return {
       items: updateItems,
       totalAmount: updateTotalAmount,
@@ -39,13 +41,14 @@ const cartReducer = (state, action) => {
     const updateTotalAmount =
       state.totalAmount - presentCartItem.amount * presentCartItem.price;
     const updateItems = state.items.filter((item) => item.id !== action.id);
-
+  
+    localStorage.setItem("cart", JSON.stringify(updateItems))
     return {
       items: updateItems,
       totalAmount: updateTotalAmount,
     };
   }
-  if(action.type === "SUB"){
+  if (action.type === "SUB") {
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.id
     );
@@ -59,13 +62,19 @@ const cartReducer = (state, action) => {
       updatedItems = [...state.items];
       updatedItems[existingCartItemIndex] = updatedItem;
     }
-
+    
+    localStorage.setItem("cart", JSON.stringify(updatedItems))
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount
     };
   }
- 
+
+  if (action.type === "CLEAR") {
+    localStorage.setItem("cart", JSON.stringify(defaultCartState.items))
+    return defaultCartState
+  }
+
 };
 
 const CartProvider = (props) => {
@@ -86,19 +95,26 @@ const CartProvider = (props) => {
     });
   };
 
+  const clearCartHandler = () => {
+    dispatchCartAction({
+      type: "CLEAR"
+    });
+  };
+
   const subItemFromCartHandler = (id) => {
     dispatchCartAction({
       type: "SUB",
       id: id,
     });
   };
-  
+
   const cartContext = {
     items: cartState.items,
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
-    subItem: subItemFromCartHandler
+    subItem: subItemFromCartHandler,
+    clearCart: clearCartHandler
   };
   return (
     <CartContext.Provider value={cartContext}>
