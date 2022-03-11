@@ -9,15 +9,7 @@ const ListProduct = (props) => {
           <div className="col">
             <h5>Điện thoại</h5>
           </div>
-          <div className="col select_sort">
-            <label htmlFor="">Sắp xếp theo: &ensp;</label>
-            <select name="" id="">
-              <option value="">Giá giảm dần</option>
-              <option value="">Giá tăng dần</option>
-              <option value="">Mới nhất</option>
-              <option value="">Cũ nhất</option>
-            </select>
-          </div>
+          <div className="col select_sort"></div>
         </div>
         <hr className="mt-4 mb-4" />
         <div className="">
