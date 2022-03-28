@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import CartContext from "../../store/cart-context";
 import PageLoading from "../../store/PageLoading";
 import CardItem from "../items/CardItem";
+import { getAllProduct } from "./../../common/api/getData";
 
 const ProductDetail = (props) => {
   const id = useParams();
@@ -11,33 +12,38 @@ const ProductDetail = (props) => {
   const fillProduct = () => {
     return props.listProduct.filter((p) => p.category === 3).slice(0, 5);
   };
-  
+
   useEffect(() => {
-    if (!props.listProduct.find((p) => p.id === Number(id.id))) {
-      setProductDetail({
-        image: "Loading...",
-        name: "Loading...",
-        price: "Loading...",
-        categoryName: "Loading...",
-      });
-    } else {
-      setProductDetail(props.listProduct.find((p) => p.id === Number(id.id)));
-    }
+    const fetchProducts = async () => {
+      const categoriesData = await getAllProduct();
+
+      if (!categoriesData.find((p) => p.id === id.id)) {
+        setProductDetail({
+          image: "Loading...",
+          name: "Loading...",
+          price: "Loading...",
+          categoryName: "Loading...",
+        });
+      } else {
+        setProductDetail(categoriesData.find((p) => p.id === id.id));
+      }
+    };
+    fetchProducts();
   }, [props, id]);
 
   const addToCartHandler = () => {
     cartCtx.addItem({
-      id:productDetail.id,
+      id: productDetail.id,
       name: productDetail.name,
       amount: 1,
-      price: Number(productDetail.price)-(Number(productDetail.price)*0.2),
-      image: productDetail.image
-    })
-  }
+      price: Number(productDetail.price) - Number(productDetail.price) * 0.2,
+      image: productDetail.image,
+    });
+  };
 
   return (
     <div className="container product_detail mt-4">
-      <PageLoading/>
+      <PageLoading />
       <div className="row">
         <div className="col-4">
           <img src={productDetail.image} width="100%" alt="" />
@@ -63,7 +69,9 @@ const ProductDetail = (props) => {
               <sup>₫</sup>
             </span>
           </p>
-          <button className="add-to-cart" onClick={addToCartHandler}>Thêm vào giỏ</button>
+          <button className="add-to-cart" onClick={addToCartHandler}>
+            Thêm vào giỏ
+          </button>
         </div>
         <div className="col-4 mt-5">
           <div className="card info_security">

@@ -15,7 +15,7 @@ body {
 
 .body-header {
   background-color: #d7202c;
-  padding: 40px 0;
+  padding: 10px 0;
 }
 
 .cart-icon {
@@ -116,7 +116,6 @@ footer {
   font-weight: bold;
 }
 
-
 .single-product-outline {
   width: 20%;
   float: left;
@@ -133,8 +132,8 @@ footer {
   width: 80%;
 }
 
-.single-product .image-product img{
- padding: 20px 0;
+.single-product .image-product img {
+  padding: 20px 0;
 }
 
 .category_in_product {
@@ -156,7 +155,7 @@ footer {
   width: 200px;
 }
 
-.info_product_details .old-price{
+.info_product_details .old-price {
   text-decoration: line-through;
 }
 
@@ -305,21 +304,20 @@ footer {
   width: 250px;
 }
 
-.cart-list .product-quantity .crud{
+.cart-list .product-quantity .crud {
   box-shadow: none;
-  border: 1px solid gainsboro;  
+  border: 1px solid gainsboro;
   border-radius: 0;
-
 }
-.cart-list .product-quantity .amount{
+.cart-list .product-quantity .amount {
   box-shadow: none;
-  border:none;
+  border: none;
   border-top: 1px solid gainsboro;
   border-bottom: 1px solid gainsboro;
   border-radius: 0;
 }
 
-.cart-list .product-quantity .crud:hover{
+.cart-list .product-quantity .crud:hover {
   background-color: rgb(229, 235, 229);
 }
 
@@ -512,23 +510,20 @@ footer {
   font-weight: 400;
 }
 
-.difProduct{
+.difProduct {
   height: 400px;
 }
 
-
 /*  */
 
-
-
-.pageLoad{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: white;
-    z-index: 10;
+.pageLoad {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  z-index: 10;
 }
 
 .loader {
@@ -546,7 +541,7 @@ footer {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  border-radius: 50%;  
+  border-radius: 50%;
 }
 
 .inner.one {

@@ -10,12 +10,7 @@ const AuthForm = () => {
     setIsLogin(false);
   };
 
-  // if(true){
-  //   console.log();
-  // }
-
   const authCtx = useContext(AuthContext);
-
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
 

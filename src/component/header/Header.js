@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import avatar from "../../assert/image/avartar.jpeg";
-import logo_header from "../../assert/image/logo1.png";
+import logo_header from "../../assert/image/logo.png";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -87,21 +87,18 @@ const Header = () => {
           <div className="row">
             <div className="col-3 align-self-center">
               <Link to="/">
-                <img src={logo_header} alt="" width="100%" />
+                <img src={logo_header} alt="" width="200px" />
               </Link>
             </div>
             <div className="col align-self-center">
-              <div className="input-group justify-content-center">
-                <div className="form-outline" style={{ width: "70%" }}>
+              <div className="input-group justify-content-left">
+                <div className="form-outline" style={{ width: "50%" }}>
                   <input
                     type="search"
                     placeholder="Tìm kiếm..."
                     className="form-control bg-white"
                   />
                 </div>
-                <button type="button" className="btn btn-dark">
-                  <i className="fas fa-search"></i>
-                </button>
               </div>
             </div>
 

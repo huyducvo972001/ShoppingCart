@@ -1,7 +1,7 @@
 import React from "react";
-import CardItem from "../../items/CardItem";
 
-const ListProduct = (props) => {
+import CardItem from "../../items/CardItem";
+const ListProduct = ({ listProduct }) => {
   return (
     <div className="container">
       <div className="mt-5 product_of_category">
@@ -13,7 +13,7 @@ const ListProduct = (props) => {
         </div>
         <hr className="mt-4 mb-4" />
         <div className="">
-          {props.listProduct.map((item) => (
+          {listProduct.map((item) => (
             <CardItem
               link={`/product-detail/${item.id}`}
               key={item.id}

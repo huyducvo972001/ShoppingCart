@@ -5,7 +5,7 @@ const Categories = (props) => {
   return (
     <tr>
       <th scope="row">
-        <Link to={`/category/${props.id}`}>{props.category}</Link>
+        <Link to={`/category/${props.slug}`}>{props.category}</Link>
       </th>
     </tr>
   );

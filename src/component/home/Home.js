@@ -9,17 +9,27 @@ import banner2 from "../../assert/image/banner2.jpg";
 import Categories from "./Categories";
 import ListProduct from "./ListProduct";
 import PageLoading from "../../store/PageLoading";
+import { useEffect, useState } from "react";
+import { getAllCategories } from "../../common/api/getData";
 const Home = (props) => {
+  const [arrProduct, setArrProduct] = useState([]);
+  const fillProduct = (categoryId) => {
+    return props.listProduct
+      .filter((p) => p.category === categoryId)
+      .slice(0, 5);
+  };
 
-  const fillProduct = (categoryId) =>{
-    return  props.listProduct.filter(
-      (p) => p.category === categoryId
-    ).slice(0, 5);
-  }
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const categoriesData = await getAllCategories();
 
+      setArrProduct(categoriesData);
+    };
+    fetchProducts();
+  }, []);
   return (
     <article className="mt-3 container">
-        <PageLoading/>
+      <PageLoading />
       <div className="category">
         <div className="row">
           <div className="col-3">
@@ -32,9 +42,13 @@ const Home = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {props.arrProduct.map(item =>(
-                  <Categories key={item.id} category={item.title} id={item.id}/>
-                ))}              
+                {arrProduct.map((item) => (
+                  <Categories
+                    key={item.id}
+                    category={item.name}
+                    slug={item.slug}
+                  />
+                ))}
               </tbody>
             </table>
           </div>
@@ -90,22 +104,13 @@ const Home = (props) => {
             <img src={banner2} width="100%" alt="" />
           </div>
         </div>
-        <ListProduct
-          title="Điện thoại"
-          item={fillProduct(1)}         
-        />
-        <ListProduct
-          title="PC"
-          item={fillProduct(4)}         
-        />
-    
+        <ListProduct title="Điện thoại" item={fillProduct(1)} />
+        <ListProduct title="PC" item={fillProduct(4)} />
+
         <div className="mt-4 mb-5">
           <img src={itemSlide} width="100%" alt="" />
         </div>
-        <ListProduct
-          title="Phụ kiện"
-          item={fillProduct(9)}         
-        />
+        <ListProduct title="Phụ kiện" item={fillProduct(9)} />
       </div>
     </article>
   );
