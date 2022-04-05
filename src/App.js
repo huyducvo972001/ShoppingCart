@@ -1,5 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { Route, BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  Route,
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import "./App.css";
 import AuthForm from "./component/auth/AuthForm";
 import Categories from "./component/categories/Categories";
@@ -9,9 +14,11 @@ import Header from "./component/header/Header";
 import Home from "./component/home/Home";
 import ProductDetail from "./component/product-detail/ProductDetail";
 import ShoppingCart from "./component/shopping-cart/ShoppingCart";
-import AuthContext from "./store/auth-context";
+
 import CartProvider from "./store/CartProvider";
 import PageLoading from "./store/PageLoading";
+import Profile from "./component/profile/Profile";
+import Registration from "./component/auth/Registration";
 
 const CATEGORY_MUMY = [
   {
@@ -63,10 +70,10 @@ const CATEGORY_MUMY = [
 
 function App() {
   const [listProduct, setListProduct] = useState([]);
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
 
-  const authCtx = useContext(AuthContext);
+  const isLogin = localStorage.getItem("userLogined");
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -90,28 +97,31 @@ function App() {
       }
 
       setListProduct(products);
-      setIsLoading(false)
-    }
-    fetchProducts().catch(error => {
-      setHttpError(error.message)
-      setIsLoading(false)
-    })
+      setIsLoading(false);
+    };
+    fetchProducts().catch((error) => {
+      setHttpError(error.message);
+      setIsLoading(false);
+    });
   }, []);
 
   if (isLoading) {
-    return <section >
-      <p>Loading...</p>
-    </section>
+    return (
+      <section>
+        <p>Loading...</p>
+      </section>
+    );
   }
 
   if (httpError) {
-    return <section>
-      <p>{httpError}</p>
-    </section>
+    return (
+      <section>
+        <p>{httpError}</p>
+      </section>
+    );
   }
 
   return (
-
     <CartProvider>
       <Router>
         <PageLoading />
@@ -126,9 +136,19 @@ function App() {
           <Route path="/shopping-cart">
             <ShoppingCart />
           </Route>
-          {!authCtx.isLoggedIn && <Route path="/auth">
-            <AuthForm />
-          </Route>}
+          {!isLogin && (
+            <Route path="/auth">
+              <AuthForm />
+            </Route>
+          )}
+          {isLogin && (
+            <Route path="/auth">
+              <Profile />
+            </Route>
+          )}
+          <Route path="/registration">
+            <Registration />
+          </Route>
           <Route path="/">
             <Home arrProduct={CATEGORY_MUMY} listProduct={listProduct} />
           </Route>
@@ -139,7 +159,6 @@ function App() {
         <Footer />
       </Router>
     </CartProvider>
-
   );
 }
 

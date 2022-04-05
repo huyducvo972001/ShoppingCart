@@ -1,0 +1,35 @@
+.profile{
+    margin-top: 120px;
+    margin-bottom: 70px;
+ 
+}
+.profile_account{
+    width: 100%;
+    height: 100%;
+
+}
+.profile_manager{
+
+    height: 100%; 
+   
+}
+
+.profile .ant-form-item-label{
+    width: 170px;
+    text-align: left;
+}
+.profile_form{
+    display: flex;
+    justify-content: space-between; 
+    gap: 30px;
+}
+.profile_form img{
+    width: 100%;
+    height: 300px;
+    margin-top: 30px;
+    object-fit: cover;
+}
+.change_password .ant-form-item-label{
+    width: 100%;
+    text-align: left;
+}

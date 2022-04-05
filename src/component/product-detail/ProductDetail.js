@@ -40,9 +40,9 @@ const ProductDetail = (props) => {
       image: productDetail.image,
     });
   };
-
+  console.log(productDetail);
   return (
-    <div className="container product_detail mt-4">
+    <div className="container product_detail">
       <PageLoading />
       <div className="row">
         <div className="col-4">
@@ -51,7 +51,7 @@ const ProductDetail = (props) => {
         <div className="col-4 mt-5">
           <p className="title-product">{productDetail.name}</p>
           <p className="category-product mt-4">
-            Danh mục: {productDetail.categoryName}
+            Danh mục: {productDetail.category}
           </p>
           <p className="raiting-product mt-4">
             <i className="bi bi-star-fill"></i>

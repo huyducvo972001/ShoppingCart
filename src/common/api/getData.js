@@ -49,3 +49,31 @@ export const getAllCategories = async () => {
 
   return c;
 };
+
+export const getAllUser = async () => {
+  const requestUrl = url + "users.json";
+  const response = await axios(requestUrl);
+
+  const data = response.data;
+
+  const u = [];
+
+  for (const i in data) {
+    u.push({
+      id: i,
+      active: data[i].active,
+      address: data[i].address,
+      avatar: data[i].avatar,
+      dateOfBirth: data[i].dateOfBirth,
+      email: data[i].email,
+      fullName: data[i].fullName,
+      gender: data[i].gender,
+      phoneNumber: data[i].phoneNumber,
+      role: data[i].role,
+      username: data[i].username,
+      password: data[i].password,
+    });
+  }
+
+  return u;
+};

@@ -29,6 +29,7 @@ const Home = (props) => {
   }, []);
   return (
     <article className="mt-3 container">
+      <div style={{ height: 80 }}></div>
       <PageLoading />
       <div className="category">
         <div className="row">

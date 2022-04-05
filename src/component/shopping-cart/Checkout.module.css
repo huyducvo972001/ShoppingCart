@@ -12,6 +12,14 @@
     border-radius: 10px;
 }
 
+.alert{
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    
+}
 .overlay{
     background-color: rgba(0, 0, 0,0.5);
     position: fixed;

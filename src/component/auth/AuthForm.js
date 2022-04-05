@@ -1,16 +1,25 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import AuthContext from "../../store/auth-context";
+import { getAllUser } from "../../common/api/getData";
+
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
   const history = useHistory();
-  const [isLogin, setIsLogin] = useState(true);
+
+  const [listUser, setListUser] = useState([]);
   const registerHandler = () => {
-    setIsLogin(false);
+    history.push("/registration");
   };
 
-  const authCtx = useContext(AuthContext);
+  useEffect(() => {
+    const fetchData = async () => {
+      const resp = await getAllUser();
+      setListUser(resp);
+    };
+    fetchData();
+  }, []);
+
   const usernameInputRef = useRef();
   const passwordInputRef = useRef();
 
@@ -19,43 +28,15 @@ const AuthForm = () => {
     const enteredUsername = usernameInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
-    let url;
-    if (!isLogin) {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB5lOPQ_RZ5NzNCrdHAHOL58YhQ1jFhrJ0";
-    } else {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyB5lOPQ_RZ5NzNCrdHAHOL58YhQ1jFhrJ0";
-    }
+    const user = listUser.find(
+      (u) => u.username === enteredUsername && u.password === enteredPassword
+    );
 
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-        email: enteredUsername,
-        password: enteredPassword,
-        returnSecureToken: true,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return <p>Error</p>;
-        }
-      })
-      .then((data) => {
-        authCtx.login(data.idToken);
-        authCtx.email(enteredUsername);
-        if (data.idToken) {
-          history.replace("/");
-        } else {
-          alert("Tên đăng nhập hoặc mật khẩu không đúng!");
-          history.replace("/auth");
-        }
-      });
+    if (user) {
+      localStorage.setItem("userLogined", JSON.stringify(user));
+      history.push("/");
+      window.location.reload();
+    }
   };
 
   const orRegister = (
@@ -70,13 +51,11 @@ const AuthForm = () => {
   return (
     <div className={classes.container}>
       <form onSubmit={submitHandler}>
-        <h3 className="mb-4 text-center font-weight-bold">
-          {isLogin ? "Đăng nhập" : "Đăng ký"}
-        </h3>
+        <h3 className="mb-4 text-center font-weight-bold">Đăng nhập</h3>
         <div className={`${classes.form_group} form-group`}>
           <label htmlFor="">Email:</label>
           <input
-            type="email"
+            type="text"
             className="form-control"
             id="email"
             ref={usernameInputRef}
@@ -93,11 +72,11 @@ const AuthForm = () => {
         </div>
         <div className={`${classes.form_group} form-group`}>
           <button className={`${classes.btn} btn btn-primary`}>
-            {isLogin ? "Đăng nhập" : "Đăng ký"}
+            Đăng nhập
           </button>
         </div>
 
-        {isLogin && orRegister}
+        {orRegister}
       </form>
     </div>
   );

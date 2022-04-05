@@ -1,0 +1,14 @@
+.registration{
+    margin: 0 auto;
+    margin-top: 120px;
+    margin-bottom: 60px;
+    width: 50%;
+    padding: 10px 30px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.registration .ant-form-item-label{
+    width: 160px;
+    text-align: left;
+}

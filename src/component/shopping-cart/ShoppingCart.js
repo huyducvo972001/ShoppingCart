@@ -4,18 +4,19 @@ import ShoppingItem from "./ShoppingItem";
 import CartContext from "../../store/cart-context";
 import PageLoading from "../../store/PageLoading";
 import Checkout from "./Checkout";
-import AuthContext from "../../store/auth-context";
 import { useHistory } from "react-router";
 
 const ShoppingCart = () => {
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const cartCtx = useContext(CartContext);
-  const authCtx = useContext(AuthContext);
+
   const history = useHistory();
 
+  const user = JSON.parse(localStorage.getItem("userLogined"));
+
   const checkoutHandler = () => {
-    if (!authCtx.isLoggedIn) {
+    if (!user) {
       history.replace("/auth");
     } else {
       setIsCheckout(true);
@@ -39,31 +40,35 @@ const ShoppingCart = () => {
       console.log(items);
     }
   }
-
+  //process
   const submitOrderHandler = async (userData) => {
-    const response = await fetch(
-      "https://shopping-comuca-default-rtdb.firebaseio.com/order.json",
+    await fetch(
+      "https://tech-store-44eac-default-rtdb.firebaseio.com/orders.json",
       {
         method: "POST",
         body: JSON.stringify({
           user: userData,
+          status: "process",
+          createdDate: new Date(),
           orderItems: cartCtx.items,
         }),
       }
     );
     setIsSubmitting(true);
+    closeCheckout();
     cartCtx.clearCart();
     localStorage.removeItem("cart");
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{ marginTop: 120 }}>
       <PageLoading />
       {isCheckout && (
         <Checkout
           isSubmitting={isSubmitting}
           onConfirm={submitOrderHandler}
           onClose={closeCheckout}
+          user={user}
         />
       )}
       <div className="mt-4 mb-5">

@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
-import avatar from "../../assert/image/avartar.jpeg";
+import { BiShoppingBag, BiPhone, BiUser, BiSearch } from "react-icons/bi";
 import logo_header from "../../assert/image/logo.png";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import CartContext from "../../store/cart-context";
 import AuthContext from "../../store/auth-context";
+import "./Header.css";
+import { Input } from "antd";
+
 const Header = () => {
   const urlHandler = useParams();
   const CartCtx = useContext(CartContext);
@@ -28,39 +31,68 @@ const Header = () => {
 
   return (
     <header>
-      <div className="top-header">
+      <div className="body-header">
         <div className="container">
-          <nav className="navbar navbar-expand-lg navbar-dark bg-dark text-white">
-            <div className="container-fluid">
-              <div
-                className="collapse navbar-collapse"
-                id="navbarSupportedContent"
-              >
-                <span>Điện thoại: (+123) 123 321 345</span>
+          <div className="header-flex">
+            <div>
+              <Link to="/">
+                <img src={logo_header} alt="" width="200px" />
+              </Link>
+            </div>
+            <div className="search">
+              <Input
+                placeholder="Tìm kiếm"
+                prefix={<BiSearch style={{ color: "#ccc", fontSize: 18 }} />}
+                size="large"
+                style={{ borderRadius: "10px", width: "400px" }}
+              />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                width: "30%",
+                justifyContent: "space-between",
+              }}
+            >
+              <div className=" call-buy">
+                <div>
+                  <BiPhone className="phoneicon" />
+                </div>
+                <div>
+                  <span>Gọi mua hàng </span> <br />
+                  <div className="phonenumber">(+123) 123 321 345</div>
+                </div>
               </div>
+              <div className=" mt-1 cart-icon">
+                <Link to="/shopping-cart" className="text-white">
+                  <div
+                    style={{ textAlign: "right", marginRight: "20px" }}
+                    className="cart"
+                  >
+                    <div>
+                      <BiShoppingBag
+                        style={{ fontSize: 40, transform: "translateY(-10%)" }}
+                      />
+                      <span className="quantity">{CartCtx.items.length}</span>
+                    </div>
+                    <div className="cart-title">
+                      <span style={{ lineHeight: -2 }}>
+                        Giỏ <br /> hàng
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+              <Link to="/auth">
+                <div className="account">
+                  <span>
+                    <BiUser className="usericon" />
+                  </span>
+                  <label style={{ color: "white", fontSize: 12, marginTop: 2 }}>
+                    Tài khoản
+                  </label>
 
-              <div className="d-flex align-items-center">
-                <label style={{ marginRight: "20px", color: "white" }}>
-                  Tài khoản
-                </label>
-
-                <a
-                  className="dropdown-toggle d-flex align-items-center hidden-arrow"
-                  href="!#"
-                  id="navbarDropdownMenuLink"
-                  role="button"
-                  data-mdb-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <img
-                    src={avatar}
-                    className="rounded-circle"
-                    height="30"
-                    alt=""
-                    loading="lazy"
-                  />
-                </a>
-                <ul
+                  {/* <ul
                   className="dropdown-menu dropdown-menu-end"
                   aria-labelledby="navbarDropdownMenuLink"
                 >
@@ -76,40 +108,7 @@ const Header = () => {
                       Đăng xuất
                     </span>
                   )}
-                </ul>
-              </div>
-            </div>
-          </nav>
-        </div>
-      </div>
-      <div className="body-header">
-        <div className="container">
-          <div className="row">
-            <div className="col-3 align-self-center">
-              <Link to="/">
-                <img src={logo_header} alt="" width="200px" />
-              </Link>
-            </div>
-            <div className="col align-self-center">
-              <div className="input-group justify-content-left">
-                <div className="form-outline" style={{ width: "50%" }}>
-                  <input
-                    type="search"
-                    placeholder="Tìm kiếm..."
-                    className="form-control bg-white"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="col-2 align-self-center cart-icon">
-              <Link to="/shopping-cart" className="text-white">
-                <div
-                  style={{ textAlign: "right", marginRight: "20px" }}
-                  className="cart"
-                >
-                  <i className="fas fa-shopping-cart"></i>
-                  <span className="quantity">{CartCtx.items.length}</span>
+                </ul> */}
                 </div>
               </Link>
             </div>

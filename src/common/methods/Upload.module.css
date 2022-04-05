@@ -1,0 +1,37 @@
+.img_holder {
+  position: relative;
+  margin-top: 0;
+}
+.img_holder_close {
+  position: absolute;
+  right: 0;
+  top: 30px;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+}
+.img_holder_close:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.label .image_upload {
+  display: flex;
+  width: 100%;
+  border: 2px dashed #aeb4b7;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  transition: all 0.3s;
+  cursor: pointer;
+  margin-top: 30px;
+}
+
+.label .image_upload:hover {
+  border: 2px dashed #3e2e99;
+}
