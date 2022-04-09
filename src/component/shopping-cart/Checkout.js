@@ -1,7 +1,7 @@
 import React, { useContext, useRef, useState } from "react";
 import classes from "./Checkout.module.css";
 import emailjs from "emailjs-com";
-import ShoppingItem from "./ShoppingItem";
+
 import CartContext from "../../store/cart-context";
 import { CheckCircleOutlined } from "@ant-design/icons";
 
@@ -13,6 +13,7 @@ const Checkout = (props) => {
     name: true,
     phoneNumber: true,
     address: true,
+    email: props.user.email,
   });
 
   const nameInputRef = useRef();
@@ -36,6 +37,7 @@ const Checkout = (props) => {
       name: enteredNameIsValid,
       phoneNumber: enteredPhoneNumberIsValid,
       address: enteredAddressIsValid,
+      email: props.user.email,
     });
 
     const formIsValid =

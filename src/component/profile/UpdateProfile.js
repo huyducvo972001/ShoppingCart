@@ -159,7 +159,7 @@ const UpdateProfile = ({ user, history, isChange, setIsChange }) => {
               >
                 <Input />
               </Form.Item>
-              <Form.Item>
+              <Form.Item label=" ">
                 <Button type="primary" htmlType="submit">
                   Lưu
                 </Button>

@@ -1,13 +1,13 @@
 import React from "react";
-import footer1 from '../../assert/image/footer1.png'
-import footer2 from '../../assert/image/footer2.png'
-import footer3 from '../../assert/image/footer3.png'
-import footer4 from '../../assert/image/footer3.png'
-import logo_footer from '../../assert/image/logo2.png'
-import icon_gmail from '../../assert/image/gmail.png'
-import icon_facebook from '../../assert/image/facebook.png'
-import icon_youtube from '../../assert/image/youtube.png'
-import icon_instagram from '../../assert/image/instagram.png'
+import footer1 from "../../assert/image/footer1.png";
+import footer2 from "../../assert/image/footer2.png";
+import footer3 from "../../assert/image/footer3.png";
+import footer4 from "../../assert/image/footer3.png";
+import logo_footer from "../../assert/image/logof.png";
+import icon_gmail from "../../assert/image/gmail.png";
+import icon_facebook from "../../assert/image/facebook.png";
+import icon_youtube from "../../assert/image/youtube.png";
+import icon_instagram from "../../assert/image/instagram.png";
 const Footer = () => {
   return (
     <footer>
@@ -54,7 +54,7 @@ const Footer = () => {
       <div className="body-footer">
         <div className="container">
           <div className="row">
-            <div className="col" style={{paddingRight: "150px"}}>
+            <div className="col" style={{ paddingRight: "150px" }}>
               <img src={logo_footer} width="100%" alt="" />
               <p className="mt-3">
                 Công ty TNHH Java 5 FPT Polytechnic chi nhánh IT16102

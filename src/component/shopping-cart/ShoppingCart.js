@@ -51,6 +51,8 @@ const ShoppingCart = () => {
           status: "process",
           createdDate: new Date(),
           orderItems: cartCtx.items,
+          receiveDate: new Date(),
+          totalPrice: cartCtx.totalAmount + 80000,
         }),
       }
     );

@@ -19,6 +19,8 @@ import CartProvider from "./store/CartProvider";
 import PageLoading from "./store/PageLoading";
 import Profile from "./component/profile/Profile";
 import Registration from "./component/auth/Registration";
+import OrderStatus from "./component/order-status/OrderStatus";
+import OrderDetail from "./component/order-status/OrderDetail";
 
 const CATEGORY_MUMY = [
   {
@@ -148,6 +150,12 @@ function App() {
           )}
           <Route path="/registration">
             <Registration />
+          </Route>
+          <Route path="/satus-order">
+            <OrderStatus />
+          </Route>
+          <Route path="/satus-order-detail/:id">
+            <OrderDetail />
           </Route>
           <Route path="/">
             <Home arrProduct={CATEGORY_MUMY} listProduct={listProduct} />

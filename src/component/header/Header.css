@@ -71,3 +71,23 @@
 
   box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
 }
+.status_order {
+  width: 130px;
+  cursor: pointer;
+}
+.status_order:hover {
+  color: #fff;
+}
+.status_order i {
+  font-size: 34px;
+  margin-right: 10px;
+}
+.status_order {
+  font-size: 13px;
+  line-height: 20px;
+
+  color: #fff;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}

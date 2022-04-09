@@ -5,20 +5,12 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import CartContext from "../../store/cart-context";
-import AuthContext from "../../store/auth-context";
 import "./Header.css";
 import { Input } from "antd";
 
 const Header = () => {
   const urlHandler = useParams();
   const CartCtx = useContext(CartContext);
-
-  const authCtx = useContext(AuthContext);
-  const isLoggedIn = authCtx.isLoggedIn;
-
-  const logoutHandler = () => {
-    authCtx.logout();
-  };
 
   useEffect(() => {
     const action = setTimeout(() => {
@@ -50,18 +42,24 @@ const Header = () => {
             <div
               style={{
                 display: "flex",
-                width: "30%",
+                width: "42%",
                 justifyContent: "space-between",
               }}
             >
-              <div className=" call-buy">
+              <div className="call-buy">
                 <div>
                   <BiPhone className="phoneicon" />
                 </div>
                 <div>
-                  <span>Gọi mua hàng </span> <br />
+                  <span>Gọi mua hàng</span> <br />
                   <div className="phonenumber">(+123) 123 321 345</div>
                 </div>
+              </div>
+              <div>
+                <Link to="/satus-order" className="status_order">
+                  <i className="fas fa-inbox"></i>
+                  <span>Trạng thái đơn hàng</span>
+                </Link>
               </div>
               <div className=" mt-1 cart-icon">
                 <Link to="/shopping-cart" className="text-white">
@@ -91,24 +89,6 @@ const Header = () => {
                   <label style={{ color: "white", fontSize: 12, marginTop: 2 }}>
                     Tài khoản
                   </label>
-
-                  {/* <ul
-                  className="dropdown-menu dropdown-menu-end"
-                  aria-labelledby="navbarDropdownMenuLink"
-                >
-                  {!isLoggedIn && (
-                    <li>
-                      <Link to="/auth">
-                        <span className="dropdown-item">Đăng nhập</span>
-                      </Link>
-                    </li>
-                  )}
-                  {isLoggedIn && (
-                    <span className="dropdown-item" onClick={logoutHandler}>
-                      Đăng xuất
-                    </span>
-                  )}
-                </ul> */}
                 </div>
               </Link>
             </div>

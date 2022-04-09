@@ -77,3 +77,17 @@ export const getAllUser = async () => {
 
   return u;
 };
+export const getAllOrder = async () => {
+  const requestUrl = url + "orders.json";
+  const response = await axios(requestUrl);
+
+  const data = response.data;
+
+  const o = [];
+
+  for (const i in data) {
+    o.push({ id: i, ...data[i] });
+  }
+
+  return o;
+};
